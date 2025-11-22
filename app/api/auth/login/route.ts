@@ -1,15 +1,17 @@
 import { db } from "@/lib/db"
-import { verifyPassword } from "@/lib/auth"
+import { comparePassword } from "@/lib/auth"
 import { type NextRequest, NextResponse } from "next/server"
-import { cookies } from "next/headers"
+import { z } from "zod"
+
+const LoginSchema = z.object({
+  email: z.string().email(),
+  password: z.string().min(1),
+})
 
 export async function POST(req: NextRequest) {
   try {
-    const { email, password } = await req.json()
-
-    if (!email || !password) {
-      return NextResponse.json({ error: "Missing email or password" }, { status: 400 })
-    }
+    const body = await req.json()
+    const { email, password } = LoginSchema.parse(body)
 
     const user = await db.user.findUnique({
       where: { email },
@@ -19,7 +21,11 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
     }
 
-    const isPasswordValid = await verifyPassword(password, user.password)
+    if (!user.isActive) {
+      return NextResponse.json({ error: "User account is inactive" }, { status: 403 })
+    }
+
+    const isPasswordValid = await comparePassword(password, user.password)
 
     if (!isPasswordValid) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 })
@@ -30,21 +36,54 @@ export async function POST(req: NextRequest) {
       data: { lastLoginAt: new Date() },
     })
 
-    const cookieStore = await cookies()
-    cookieStore.set("userId", user.id, {
-      httpOnly: true,
-      secure: process.env.NODE_ENV === "production",
-      maxAge: 60 * 60 * 24 * 7,
+    // Create session token (simple base64 encoded user data)
+    const sessionToken = Buffer.from(JSON.stringify({ userId: user.id, email: user.email, role: user.role })).toString("base64")
+
+    const response = NextResponse.json({
+      message: "Login successful",
+      user: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        role: user.role,
+      },
     })
 
-    return NextResponse.json({
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      role: user.role,
+    // Set secure HTTP-only cookie
+    response.cookies.set("auth_token", sessionToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: "lax",
+      maxAge: 60 * 60 * 24 * 7, // 7 days
     })
+
+    // Log audit
+    await db.auditLog.create({
+      data: {
+        userId: user.id,
+        action: "LOGIN",
+        entityType: "User",
+        entityId: user.id,
+      },
+    })
+
+    return response
   } catch (error) {
     console.error("Login error:", error)
+    if (error instanceof z.ZodError) {
+      return NextResponse.json({ error: error.errors }, { status: 400 })
+    }
+
+    // In development, return the error message/stack to help debugging.
+    if (process.env.NODE_ENV !== "production") {
+      return NextResponse.json(
+        { error: "Internal server error", details: (error as any)?.message, stack: (error as any)?.stack },
+        { status: 500 }
+      )
+    }
+
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
+
+

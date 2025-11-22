@@ -1,25 +1,34 @@
 import { db } from "@/lib/db"
-import { executeStockMovement } from "@/lib/stock-engine"
+import { executeStockMovement, unreserveStock } from "@/lib/stock-engine"
 import { type NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
     const status = searchParams.get("status")
+    const warehouseId = searchParams.get("warehouseId")
+    const skip = parseInt(searchParams.get("skip") || "0")
+    const take = parseInt(searchParams.get("take") || "20")
 
     const where: any = {}
     if (status) where.status = status
+    if (warehouseId) where.warehouseId = warehouseId
 
-    const deliveries = await db.deliveryOrder.findMany({
-      where,
-      include: {
-        items: { include: { product: true } },
-      },
-      orderBy: { createdAt: "desc" },
-      take: 50,
-    })
+    const [deliveries, total] = await Promise.all([
+      db.deliveryOrder.findMany({
+        where,
+        include: {
+          items: { include: { product: true } },
+          warehouse: true,
+        },
+        orderBy: { createdAt: "desc" },
+        skip,
+        take,
+      }),
+      db.deliveryOrder.count({ where }),
+    ])
 
-    return NextResponse.json(deliveries)
+    return NextResponse.json({ deliveries, total })
   } catch (error) {
     console.error("Get deliveries error:", error)
     return NextResponse.json({ error: "Failed to fetch deliveries" }, { status: 500 })
@@ -51,7 +60,7 @@ export async function POST(req: NextRequest) {
           })),
         },
       },
-      include: { items: { include: { product: true } } },
+      include: { items: { include: { product: true } }, warehouse: true },
     })
 
     return NextResponse.json(delivery, { status: 201 })
@@ -64,23 +73,23 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json()
-    const { deliveryId, status } = body
+    const { deliveryId, status, userId } = body
 
-    if (!deliveryId) {
-      return NextResponse.json({ error: "Missing delivery ID" }, { status: 400 })
+    if (!deliveryId || !userId) {
+      return NextResponse.json({ error: "Missing delivery ID or user ID" }, { status: 400 })
+    }
+
+    const delivery = await db.deliveryOrder.findUnique({
+      where: { id: deliveryId },
+      include: { items: true, warehouse: true },
+    })
+
+    if (!delivery) {
+      return NextResponse.json({ error: "Delivery not found" }, { status: 404 })
     }
 
     if (status === "DONE") {
-      // Process stock movements
-      const delivery = await db.deliveryOrder.findUnique({
-        where: { id: deliveryId },
-        include: { items: true },
-      })
-
-      if (!delivery) {
-        return NextResponse.json({ error: "Delivery not found" }, { status: 404 })
-      }
-
+      // Get stock locations and create deliveries
       const location = await db.location.findFirst({
         where: { warehouseId: delivery.warehouseId },
       })
@@ -95,16 +104,34 @@ export async function PUT(req: NextRequest) {
         type: "DELIVERY" as const,
         locationId: location.id,
         referenceId: deliveryId,
-        notes: `Delivery completion for customer`,
+        referenceType: "Delivery",
+        notes: `Delivery: ${delivery.deliveryNo}`,
       }))
 
-      await executeStockMovement(movements)
+      await executeStockMovement(movements, {
+        userId,
+        action: "COMPLETE_DELIVERY",
+        entityType: "DeliveryOrder",
+        entityId: deliveryId,
+        details: `Completed delivery ${delivery.deliveryNo}`,
+      })
+
+      // Unreserve stock if status was READY
+      if (delivery.status === "READY") {
+        for (const item of delivery.items) {
+          try {
+            await unreserveStock(item.productId, location.id, item.quantityOrdered, userId)
+          } catch (e) {
+            console.error(`Failed to unreserve stock for ${item.productId}`, e)
+          }
+        }
+      }
     }
 
     const result = await db.deliveryOrder.update({
       where: { id: deliveryId },
       data: { status },
-      include: { items: { include: { product: true } } },
+      include: { items: { include: { product: true } }, warehouse: true },
     })
 
     return NextResponse.json(result)

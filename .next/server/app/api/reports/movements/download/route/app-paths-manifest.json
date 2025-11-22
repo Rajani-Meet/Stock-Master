@@ -1,0 +1,3 @@
+{
+  "/api/reports/movements/download/route": "app/api/reports/movements/download/route.js"
+}

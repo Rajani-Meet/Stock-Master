@@ -1,0 +1,3 @@
+module.exports=[26459,a=>{"use strict";var b=a.i(87924),c=a.i(72131),d=a.i(50944);function e(){let[a,e]=(0,c.useState)(null),f=(0,d.useRouter)();return(0,c.useEffect)(()=>{let a=localStorage.getItem("user");if(a){let b=JSON.parse(a);switch(e(b),b.role){case"ADMIN":f.push("/dashboard/admin");break;case"MANAGER":f.push("/dashboard/manager");break;default:f.push("/dashboard/staff")}}},[f]),(0,b.jsx)("div",{className:"text-center py-10",children:"Redirecting to your dashboard..."})}a.s(["default",()=>e])}];
+
+//# sourceMappingURL=app_%28authenticated%29_dashboard_page_tsx_cf8f473e._.js.map

@@ -54,6 +54,8 @@ model Warehouse {
 
   locations    Location[]
   stockLevels  StockLevel[]
+  receipts     Receipt[]
+  deliveries   DeliveryOrder[]
 
   @@index([code])
 }
@@ -69,8 +71,11 @@ model Location {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
 
-  stockLevels  StockLevel[]
-  stockMoves   StockMove[]
+  stockLevels      StockLevel[]
+  stockMoves       StockMove[]
+  transfersFrom    InternalTransfer[] @relation("TransferFrom")
+  transfersTo      InternalTransfer[] @relation("TransferTo")
+  adjustments      StockAdjustment[]
 
   @@unique([warehouseId, code])
   @@index([warehouseId])
@@ -110,6 +115,8 @@ model Product {
   transferItems      TransferItem[]
   adjustmentItems    AdjustmentItem[]
   reorderRules       ReorderRule[]
+  stockMoves         StockMove[]
+  alerts             Alert[]
 
   @@index([sku])
   @@index([categoryId])
@@ -156,6 +163,7 @@ model StockMove {
   locationId    String
   location      Location      @relation(fields: [locationId], references: [id], onDelete: SetNull)
   productId     String
+  product       Product       @relation(fields: [productId], references: [id], onDelete: Cascade)
   moveType      StockMoveType
   quantity      Int
   referenceId   String? // Receipt, Delivery, Transfer, or Adjustment ID
@@ -167,6 +175,7 @@ model StockMove {
   @@index([locationId])
   @@index([productId])
   @@index([referenceId])
+  @@index([createdAt])
 }
 
 // ============= RECEIPTS (INCOMING GOODS) =============
@@ -185,6 +194,7 @@ model Receipt {
   supplierId    String?
   supplierName  String
   warehouseId   String
+  warehouse     Warehouse     @relation(fields: [warehouseId], references: [id], onDelete: Restrict)
   receivedDate  DateTime
   notes         String?
   
@@ -192,6 +202,9 @@ model Receipt {
   updatedAt     DateTime      @updatedAt
 
   items         ReceiptItem[]
+
+  @@index([status])
+  @@index([warehouseId])
 }
 
 model ReceiptItem {
@@ -228,6 +241,7 @@ model DeliveryOrder {
   customerId    String?
   customerName  String
   warehouseId   String
+  warehouse     Warehouse       @relation(fields: [warehouseId], references: [id], onDelete: Restrict)
   deliveryDate  DateTime
   notes         String?
   
@@ -235,6 +249,9 @@ model DeliveryOrder {
   updatedAt     DateTime        @updatedAt
 
   items         DeliveryItem[]
+
+  @@index([status])
+  @@index([warehouseId])
 }
 
 model DeliveryItem {
@@ -271,7 +288,9 @@ model InternalTransfer {
   transferNo      String          @unique
   status          TransferStatus  @default(DRAFT)
   fromLocationId  String
+  fromLocation    Location        @relation("TransferFrom", fields: [fromLocationId], references: [id], onDelete: Restrict)
   toLocationId    String
+  toLocation      Location        @relation("TransferTo", fields: [toLocationId], references: [id], onDelete: Restrict)
   transferDate    DateTime
   notes           String?
   
@@ -279,6 +298,10 @@ model InternalTransfer {
   updatedAt       DateTime        @updatedAt
 
   items           TransferItem[]
+
+  @@index([status])
+  @@index([fromLocationId])
+  @@index([toLocationId])
 }
 
 model TransferItem {
@@ -313,6 +336,7 @@ model StockAdjustment {
   adjustmentNo  String          @unique
   type          AdjustmentType
   locationId    String
+  location      Location        @relation(fields: [locationId], references: [id], onDelete: Restrict)
   adjustmentDate DateTime
   reason        String
   notes         String?
@@ -321,6 +345,8 @@ model StockAdjustment {
   updatedAt     DateTime        @updatedAt
 
   items         AdjustmentItem[]
+
+  @@index([locationId])
 }
 
 model AdjustmentItem {
@@ -360,6 +386,7 @@ model Alert {
   id              String    @id @default(cuid())
   type            String    // LOW_STOCK, OUT_OF_STOCK, PENDING_RECEIPT, PENDING_DELIVERY
   productId       String?
+  product         Product?  @relation(fields: [productId], references: [id], onDelete: SetNull)
   severity        String    @default("WARNING") // INFO, WARNING, CRITICAL
   message         String
   isResolved      Boolean   @default(false)
