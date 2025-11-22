@@ -5,7 +5,7 @@ import type React from "react"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
 import Link from "next/link"
-import { LogOut, Menu, Package, BarChart3, Warehouse, Settings, ArrowRight, Settings2 } from "lucide-react"
+import { LogOut, Menu, Package, BarChart3, Warehouse, Settings, ArrowRight, Settings2, History, User, Users, FileText } from "lucide-react"
 
 export default function AuthenticatedLayout({
   children,
@@ -31,16 +31,34 @@ export default function AuthenticatedLayout({
     router.push("/login")
   }
 
-  const navigationItems = [
-    { label: "Dashboard", href: "/dashboard", icon: BarChart3 },
-    { label: "Products", href: "/products", icon: Package },
-    { label: "Warehouses", href: "/warehouses", icon: Warehouse },
-    { label: "Receipts", href: "/receipts", icon: Package },
-    { label: "Deliveries", href: "/deliveries", icon: Package },
-    { label: "Transfers", href: "/transfers", icon: ArrowRight },
-    { label: "Adjustments", href: "/adjustments", icon: Settings2 },
-    { label: "Settings", href: "/settings", icon: Settings },
-  ]
+  const getNavigationItems = () => {
+    const dashboardHref = user?.role === "ADMIN" ? "/dashboard/admin" : 
+                         user?.role === "MANAGER" ? "/dashboard/manager" : "/dashboard/staff"
+    
+    const baseItems = [
+      { label: "Dashboard", href: dashboardHref, icon: BarChart3 },
+      { label: "Products", href: "/products", icon: Package },
+      { label: "Warehouses", href: "/warehouses", icon: Warehouse },
+      { label: "Receipts", href: "/receipts", icon: Package },
+      { label: "Deliveries", href: "/deliveries", icon: Package },
+      { label: "Transfers", href: "/transfers", icon: ArrowRight },
+      { label: "Adjustments", href: "/adjustments", icon: Settings2 },
+      { label: "Move History", href: "/move-history", icon: History },
+    ]
+
+    // Add admin-only items
+    if (user?.role === "ADMIN") {
+      baseItems.push({ label: "Users", href: "/users", icon: Users })
+    }
+
+    baseItems.push(
+      { label: "Reports", href: "/reports", icon: FileText },
+      { label: "Profile", href: "/profile", icon: User },
+      { label: "Settings", href: "/settings", icon: Settings }
+    )
+
+    return baseItems
+  }
 
   return (
     <div className="flex h-screen bg-background">
@@ -57,7 +75,7 @@ export default function AuthenticatedLayout({
         </div>
 
         <nav className="p-4 space-y-2">
-          {navigationItems.map((item) => (
+          {getNavigationItems().map((item) => (
             <Link
               key={item.href}
               href={item.href}

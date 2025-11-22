@@ -1,72 +1,88 @@
 import { db } from "@/lib/db"
-import { type NextRequest, NextResponse } from "next/server"
+import { NextResponse } from "next/server"
 
-export async function GET(req: NextRequest) {
+export async function GET(req: Request) {
   try {
     const { searchParams } = new URL(req.url)
     const warehouseId = searchParams.get("warehouseId")
-    const locationId = searchParams.get("locationId")
     const productId = searchParams.get("productId")
-    const skip = parseInt(searchParams.get("skip") || "0")
-    const take = parseInt(searchParams.get("take") || "20")
+    const categoryId = searchParams.get("categoryId")
+    const lowStock = searchParams.get("lowStock")
+    const outOfStock = searchParams.get("outOfStock")
+    const search = searchParams.get("search")
+    const page = parseInt(searchParams.get("page") || "1")
+    const limit = parseInt(searchParams.get("limit") || "50")
 
     const where: any = {}
     if (warehouseId) where.warehouseId = warehouseId
-    if (locationId) where.locationId = locationId
     if (productId) where.productId = productId
+    if (categoryId) where.product = { categoryId }
+    if (search) {
+      where.OR = [
+        { product: { name: { contains: search, mode: "insensitive" } } },
+        { product: { sku: { contains: search, mode: "insensitive" } } }
+      ]
+    }
 
-    const [stockLevels, total] = await Promise.all([
-      db.stockLevel.findMany({
-        where,
-        include: {
-          product: { include: { category: true } },
-          location: true,
-          warehouse: true,
-        },
-        skip,
-        take,
-        orderBy: { quantity: "asc" },
-      }),
-      db.stockLevel.count({ where }),
-    ])
+    let stockLevels = await db.stockLevel.findMany({
+      where,
+      include: {
+        product: { include: { category: true } },
+        warehouse: true,
+        location: true
+      },
+      orderBy: { quantity: "asc" },
+      skip: (page - 1) * limit,
+      take: limit
+    })
 
-    return NextResponse.json({ stockLevels, total })
+    if (lowStock === "true") {
+      stockLevels = stockLevels.filter(sl => 
+        sl.quantity > 0 && sl.quantity <= sl.product.minStockLevel
+      )
+    }
+
+    if (outOfStock === "true") {
+      stockLevels = stockLevels.filter(sl => sl.quantity === 0)
+    }
+
+    const total = await db.stockLevel.count({ where })
+
+    return NextResponse.json({ 
+      data: stockLevels,
+      pagination: {
+        page,
+        limit,
+        total,
+        pages: Math.ceil(total / limit)
+      }
+    })
   } catch (error) {
-    console.error("Get stock levels error:", error)
     return NextResponse.json({ error: "Failed to fetch stock levels" }, { status: 500 })
   }
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(req: Request) {
   try {
-    const body = await req.json()
-    const { warehouseId, locationId, productId, quantity } = body
-
-    if (!warehouseId || !locationId || !productId || quantity === undefined) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
-    }
+    const { productId, warehouseId, locationId, quantity, reservedQty = 0 } = await req.json()
 
     const stockLevel = await db.stockLevel.create({
       data: {
+        productId,
         warehouseId,
         locationId,
-        productId,
         quantity,
-        availableQuantity: quantity,
+        reservedQty
       },
       include: {
         product: { include: { category: true } },
-        location: true,
         warehouse: true,
-      },
+        location: true
+      }
     })
 
-    return NextResponse.json(stockLevel, { status: 201 })
-  } catch (error: any) {
-    console.error("Create stock level error:", error)
-    if (error.code === "P2002") {
-      return NextResponse.json({ error: "Stock level already exists for this location/product combination" }, { status: 409 })
-    }
+    return NextResponse.json({ data: stockLevel })
+  } catch (error) {
     return NextResponse.json({ error: "Failed to create stock level" }, { status: 500 })
   }
 }
