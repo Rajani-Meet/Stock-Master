@@ -4,15 +4,24 @@ import { type NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest) {
   try {
-    const adjustments = await db.stockAdjustment.findMany({
-      include: {
-        items: { include: { product: true } },
-      },
-      orderBy: { createdAt: "desc" },
-      take: 50,
-    })
+    const { searchParams } = new URL(req.url)
+    const skip = parseInt(searchParams.get("skip") || "0")
+    const take = parseInt(searchParams.get("take") || "20")
 
-    return NextResponse.json(adjustments)
+    const [adjustments, total] = await Promise.all([
+      db.stockAdjustment.findMany({
+        include: {
+          items: { include: { product: true } },
+          location: true,
+        },
+        orderBy: { createdAt: "desc" },
+        skip,
+        take,
+      }),
+      db.stockAdjustment.count(),
+    ])
+
+    return NextResponse.json({ adjustments, total })
   } catch (error) {
     console.error("Get adjustments error:", error)
     return NextResponse.json({ error: "Failed to fetch adjustments" }, { status: 500 })
@@ -22,26 +31,15 @@ export async function GET(req: NextRequest) {
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json()
-    const { type, locationId, adjustmentDate, reason, items, notes } = body
+    const { type, locationId, adjustmentDate, reason, items, notes, userId } = body
 
-    if (!type || !locationId || !items?.length || !reason) {
+    if (!type || !locationId || !reason || !items?.length || !userId) {
       return NextResponse.json({ error: "Missing required fields" }, { status: 400 })
     }
 
     const adjustmentNo = `ADJ-${Date.now()}`
 
-    // Process stock movements
-    const movements = items.map((item: any) => ({
-      productId: item.productId,
-      quantity: Math.abs(item.adjustedQty - item.currentQty),
-      type: item.adjustedQty > item.currentQty ? ("ADJUSTMENT_PLUS" as const) : ("ADJUSTMENT_MINUS" as const),
-      locationId,
-      referenceId: adjustmentNo,
-      notes: `${reason}: ${notes || ""}`,
-    }))
-
-    await executeStockMovement(movements)
-
+    // Create adjustment record first
     const adjustment = await db.stockAdjustment.create({
       data: {
         adjustmentNo,
@@ -58,7 +56,35 @@ export async function POST(req: NextRequest) {
           })),
         },
       },
-      include: { items: { include: { product: true } } },
+      include: {
+        items: { include: { product: true } },
+        location: true,
+      },
+    })
+
+    // Process stock movements
+    const movements = items.map((item: any) => {
+      const quantity = Math.abs(item.adjustedQty - item.currentQty)
+      const isPositive = item.adjustedQty > item.currentQty
+
+      return {
+        productId: item.productId,
+        quantity,
+        type: isPositive ? ("ADJUSTMENT_PLUS" as const) : ("ADJUSTMENT_MINUS" as const),
+        locationId,
+        referenceId: adjustment.id,
+        referenceType: "Adjustment",
+        notes: `${reason}: ${isPositive ? "+" : "-"}${quantity}`,
+      }
+    })
+
+    await executeStockMovement(movements, {
+      userId,
+      action: "CREATE_ADJUSTMENT",
+      entityType: "StockAdjustment",
+      entityId: adjustment.id,
+      details: `Stock adjustment ${adjustmentNo}: ${reason}`,
+      changes: { reason, itemCount: items.length },
     })
 
     return NextResponse.json(adjustment, { status: 201 })
