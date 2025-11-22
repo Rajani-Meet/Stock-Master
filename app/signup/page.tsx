@@ -142,7 +142,6 @@ export default function SignupPage() {
                   <SelectContent className="bg-white border-gray-200">
                     <SelectItem value="WAREHOUSE_STAFF" className="text-gray-900">Warehouse Staff</SelectItem>
                     <SelectItem value="MANAGER" className="text-gray-900">Manager</SelectItem>
-                    <SelectItem value="ADMIN" className="text-gray-900">Admin</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
