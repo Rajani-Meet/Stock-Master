@@ -7,12 +7,29 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url)
     const status = searchParams.get("status")
     const warehouseId = searchParams.get("warehouseId")
+    const category = searchParams.get("category")
+    const dateFrom = searchParams.get("dateFrom")
+    const dateTo = searchParams.get("dateTo")
     const skip = parseInt(searchParams.get("skip") || "0")
     const take = parseInt(searchParams.get("take") || "20")
 
     const where: any = {}
     if (status) where.status = status
     if (warehouseId) where.warehouseId = warehouseId
+    if (dateFrom || dateTo) {
+      where.receivedDate = {}
+      if (dateFrom) where.receivedDate.gte = new Date(dateFrom)
+      if (dateTo) where.receivedDate.lte = new Date(dateTo)
+    }
+    if (category) {
+      where.items = {
+        some: {
+          product: {
+            categoryId: category
+          }
+        }
+      }
+    }
 
     const [receipts, total] = await Promise.all([
       db.receipt.findMany({

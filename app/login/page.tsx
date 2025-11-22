@@ -91,6 +91,12 @@ export default function LoginPage() {
             </Button>
           </form>
 
+          <div className="text-center mt-4">
+            <a href="/reset-password" className="text-sm text-primary hover:underline">
+              Forgot your password?
+            </a>
+          </div>
+
           <p className="text-center text-sm text-muted-foreground mt-4">
             Demo credentials: admin@example.com / password123
           </p>

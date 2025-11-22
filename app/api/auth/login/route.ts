@@ -73,6 +73,15 @@ export async function POST(req: NextRequest) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.errors }, { status: 400 })
     }
+
+    // In development, return the error message/stack to help debugging.
+    if (process.env.NODE_ENV !== "production") {
+      return NextResponse.json(
+        { error: "Internal server error", details: (error as any)?.message, stack: (error as any)?.stack },
+        { status: 500 }
+      )
+    }
+
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }

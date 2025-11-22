@@ -116,6 +116,7 @@ model Product {
   adjustmentItems    AdjustmentItem[]
   reorderRules       ReorderRule[]
   stockMoves         StockMove[]
+  alerts             Alert[]
 
   @@index([sku])
   @@index([categoryId])
@@ -385,6 +386,7 @@ model Alert {
   id              String    @id @default(cuid())
   type            String    // LOW_STOCK, OUT_OF_STOCK, PENDING_RECEIPT, PENDING_DELIVERY
   productId       String?
+  product         Product?  @relation(fields: [productId], references: [id], onDelete: SetNull)
   severity        String    @default("WARNING") // INFO, WARNING, CRITICAL
   message         String
   isResolved      Boolean   @default(false)

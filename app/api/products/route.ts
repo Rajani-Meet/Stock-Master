@@ -5,25 +5,54 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
     const category = searchParams.get("category")
+    const search = searchParams.get("search")
+    const unit = searchParams.get("unit")
+    const lowStock = searchParams.get("lowStock")
     const skip = Number.parseInt(searchParams.get("skip") || "0")
     const take = Number.parseInt(searchParams.get("take") || "20")
+    const sortBy = searchParams.get("sortBy") || "name"
+    const sortOrder = searchParams.get("sortOrder") || "asc"
 
     const where: any = { isActive: true }
     if (category) where.categoryId = category
+    if (unit) where.unit = unit
+    if (search) {
+      where.OR = [
+        { name: { contains: search, mode: "insensitive" } },
+        { sku: { contains: search, mode: "insensitive" } },
+        { description: { contains: search, mode: "insensitive" } }
+      ]
+    }
 
     const [products, total] = await Promise.all([
       db.product.findMany({
         where,
-        include: { category: true },
+        include: { 
+          category: true,
+          stockLevels: {
+            select: {
+              quantity: true,
+              warehouse: { select: { name: true } }
+            }
+          }
+        },
         skip,
         take,
-        orderBy: { name: "asc" },
+        orderBy: { [sortBy]: sortOrder },
       }),
       db.product.count({ where }),
     ])
 
+    let filteredProducts = products
+    if (lowStock === "true") {
+      filteredProducts = products.filter(p => {
+        const totalStock = p.stockLevels.reduce((sum, sl) => sum + sl.quantity, 0)
+        return totalStock <= p.minStockLevel
+      })
+    }
+
     return NextResponse.json({
-      data: products,
+      data: filteredProducts,
       total,
       pages: Math.ceil(total / take),
     })
