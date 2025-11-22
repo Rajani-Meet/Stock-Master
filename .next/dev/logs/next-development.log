@@ -1,0 +1,223 @@
+[00:48:50.713] Server  ERROR   e:\Stock Master\node_modules\next\dist\shared\lib\turbopack\manifest-loader.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:50.714] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\turbopack-utils.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:50.718] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\hot-reloader-turbopack.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:50.719] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:50.720] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\dev-bundler-service.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:50.722] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:50.723] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-matcher-managers\dev-route-matcher-manager.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:50.724] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-matcher-managers\default-route-matcher-manager.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:50.729] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:50.733] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:50.735] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:50.736] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:50.737] Server  ERROR    ⨯ Error: ENOENT: no such file or directory, open 'e:\Stock Master\.next\dev\server\app\login\page\build-manifest.json'
+[00:48:51.734] Server  ERROR   e:\Stock Master\node_modules\next\dist\lib\fs\write-atomic.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.735] Server  ERROR   e:\Stock Master\node_modules\next\dist\shared\lib\turbopack\manifest-loader.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.735] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\turbopack-utils.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.735] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\hot-reloader-turbopack.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.736] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.736] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\dev-bundler-service.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.736] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.737] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.738] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.738] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.738] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.739] Server  ERROR    ⨯ Error: ENOENT: no such file or directory, open 'e:\Stock Master\.next\dev\static\development\_buildManifest.js.tmp.8iwjw971k4h'
+[00:48:51.913] Server  ERROR   e:\Stock Master\node_modules\next\dist\shared\lib\turbopack\manifest-loader.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.914] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\turbopack-utils.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.914] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\hot-reloader-turbopack.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.914] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.915] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\dev-bundler-service.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.915] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.916] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-matcher-managers\dev-route-matcher-manager.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.916] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-matcher-managers\default-route-matcher-manager.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.917] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.917] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.918] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.918] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.919] Server  ERROR   Error: ENOENT: no such file or directory, open 'e:\Stock Master\.next\dev\server\app\login\page\build-manifest.json'
+[00:48:51.943] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\require-hook.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.945] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\require.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.946] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\load-components.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.946] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.947] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.948] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.948] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.948] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.949] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.949] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.949] Server  ERROR    ⨯ Error: Cannot find module '../chunks/ssr/[turbopack]_runtime.js'
+Require stack:
+- e:\Stock Master\.next\dev\server\pages\_document.js
+- e:\Stock Master\node_modules\next\dist\server\require.js
+- e:\Stock Master\node_modules\next\dist\server\load-components.js
+- e:\Stock Master\node_modules\next\dist\build\utils.js
+- e:\Stock Master\node_modules\next\dist\build\swc\options.js
+- e:\Stock Master\node_modules\next\dist\build\swc\index.js
+- e:\Stock Master\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- e:\Stock Master\node_modules\next\dist\server\lib\router-server.js
+- e:\Stock Master\node_modules\next\dist\server\lib\start-server.js
+[00:48:51.955] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\load-manifest.external.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.956] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-modules\route-module.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.956] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-modules\pages\pages-handler.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.956] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.957] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.957] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.957] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.957] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.958] Server  ERROR   Error: ENOENT: no such file or directory, open 'e:\Stock Master\.next\dev\routes-manifest.json'
+[00:48:51.966] Server  ERROR   e:\Stock Master\node_modules\next\dist\shared\lib\turbopack\manifest-loader.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.967] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\turbopack-utils.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.967] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\hot-reloader-turbopack.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.968] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.968] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\dev-bundler-service.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.968] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.969] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-matcher-managers\dev-route-matcher-manager.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.969] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-matcher-managers\default-route-matcher-manager.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.969] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.970] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.970] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.970] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.971] Server  ERROR    ⨯ Error: ENOENT: no such file or directory, open 'e:\Stock Master\.next\dev\server\app\login\page\build-manifest.json'
+[00:48:51.976] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\require-hook.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.978] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\require.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.978] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\load-components.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.979] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.979] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.980] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.980] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.980] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.981] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.981] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.981] Server  ERROR    ⨯ Error: Cannot find module '../chunks/ssr/[turbopack]_runtime.js'
+Require stack:
+- e:\Stock Master\.next\dev\server\pages\_document.js
+- e:\Stock Master\node_modules\next\dist\server\require.js
+- e:\Stock Master\node_modules\next\dist\server\load-components.js
+- e:\Stock Master\node_modules\next\dist\build\utils.js
+- e:\Stock Master\node_modules\next\dist\build\swc\options.js
+- e:\Stock Master\node_modules\next\dist\build\swc\index.js
+- e:\Stock Master\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- e:\Stock Master\node_modules\next\dist\server\lib\router-server.js
+- e:\Stock Master\node_modules\next\dist\server\lib\start-server.js
+[00:48:51.987] Server  ERROR   e:\Stock Master\node_modules\next\dist\shared\lib\turbopack\manifest-loader.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.987] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\turbopack-utils.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.988] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\hot-reloader-turbopack.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.988] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.988] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\dev-bundler-service.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.988] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.988] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-matcher-managers\dev-route-matcher-manager.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.989] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-matcher-managers\default-route-matcher-manager.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.989] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.989] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.989] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.990] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.990] Server  ERROR   Error: ENOENT: no such file or directory, open 'e:\Stock Master\.next\dev\server\app\login\page\build-manifest.json'
+[00:48:51.998] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\require-hook.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.999] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\require.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:51.999] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\load-components.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.000] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.000] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.001] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.001] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.001] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.002] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.002] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.002] Server  ERROR    ⨯ Error: Cannot find module '../chunks/ssr/[turbopack]_runtime.js'
+Require stack:
+- e:\Stock Master\.next\dev\server\pages\_document.js
+- e:\Stock Master\node_modules\next\dist\server\require.js
+- e:\Stock Master\node_modules\next\dist\server\load-components.js
+- e:\Stock Master\node_modules\next\dist\build\utils.js
+- e:\Stock Master\node_modules\next\dist\build\swc\options.js
+- e:\Stock Master\node_modules\next\dist\build\swc\index.js
+- e:\Stock Master\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- e:\Stock Master\node_modules\next\dist\server\lib\router-server.js
+- e:\Stock Master\node_modules\next\dist\server\lib\start-server.js
+[00:48:52.007] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\load-manifest.external.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.008] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-modules\route-module.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.008] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-modules\pages\pages-handler.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.008] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.009] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.009] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.009] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.010] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.010] Server  ERROR   Error: ENOENT: no such file or directory, open 'e:\Stock Master\.next\dev\routes-manifest.json'
+[00:48:52.030] Server  ERROR   e:\Stock Master\node_modules\next\dist\shared\lib\turbopack\manifest-loader.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.030] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\turbopack-utils.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.030] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\hot-reloader-turbopack.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.031] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.031] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\dev-bundler-service.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.031] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.032] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-matcher-managers\dev-route-matcher-manager.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.032] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-matcher-managers\default-route-matcher-manager.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.032] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.033] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.033] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.034] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.034] Server  ERROR    ⨯ Error: ENOENT: no such file or directory, open 'e:\Stock Master\.next\dev\server\app\login\page\build-manifest.json'
+[00:48:52.042] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\require-hook.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.043] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\require.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.043] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\load-components.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.043] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.044] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.045] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.046] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.046] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.046] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.047] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.047] Server  ERROR    ⨯ Error: Cannot find module '../chunks/ssr/[turbopack]_runtime.js'
+Require stack:
+- e:\Stock Master\.next\dev\server\pages\_document.js
+- e:\Stock Master\node_modules\next\dist\server\require.js
+- e:\Stock Master\node_modules\next\dist\server\load-components.js
+- e:\Stock Master\node_modules\next\dist\build\utils.js
+- e:\Stock Master\node_modules\next\dist\build\swc\options.js
+- e:\Stock Master\node_modules\next\dist\build\swc\index.js
+- e:\Stock Master\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- e:\Stock Master\node_modules\next\dist\server\lib\router-server.js
+- e:\Stock Master\node_modules\next\dist\server\lib\start-server.js
+[00:48:52.052] Server  ERROR   e:\Stock Master\node_modules\next\dist\shared\lib\turbopack\manifest-loader.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.052] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\turbopack-utils.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.052] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\hot-reloader-turbopack.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.052] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.053] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\dev-bundler-service.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.053] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.053] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-matcher-managers\dev-route-matcher-manager.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.054] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-matcher-managers\default-route-matcher-manager.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.054] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.054] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.054] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.055] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.055] Server  ERROR   Error: ENOENT: no such file or directory, open 'e:\Stock Master\.next\dev\server\app\login\page\build-manifest.json'
+[00:48:52.063] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\require-hook.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.064] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\require.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.065] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\load-components.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.065] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\next-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.065] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\trace\tracer.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.066] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.066] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.067] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.067] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.067] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.068] Server  ERROR    ⨯ Error: Cannot find module '../chunks/ssr/[turbopack]_runtime.js'
+Require stack:
+- e:\Stock Master\.next\dev\server\pages\_document.js
+- e:\Stock Master\node_modules\next\dist\server\require.js
+- e:\Stock Master\node_modules\next\dist\server\load-components.js
+- e:\Stock Master\node_modules\next\dist\build\utils.js
+- e:\Stock Master\node_modules\next\dist\build\swc\options.js
+- e:\Stock Master\node_modules\next\dist\build\swc\index.js
+- e:\Stock Master\node_modules\next\dist\server\lib\router-utils\setup-dev-bundler.js
+- e:\Stock Master\node_modules\next\dist\server\lib\router-server.js
+- e:\Stock Master\node_modules\next\dist\server\lib\start-server.js
+[00:48:52.073] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\load-manifest.external.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.073] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-modules\route-module.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.074] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\route-modules\pages\pages-handler.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.074] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\base-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.074] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\dev\next-dev-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.075] Server  ERROR   e:\Stock Master\node_modules\next\dist\trace\trace.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.075] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\router-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.075] Server  ERROR   e:\Stock Master\node_modules\next\dist\server\lib\start-server.js: Invalid source map. Only conformant source maps can be used to find the original code. Cause: Error: sourceMapURL could not be parsed
+[00:48:52.076] Server  ERROR   Error: ENOENT: no such file or directory, open 'e:\Stock Master\.next\dev\routes-manifest.json'
+[00:49:34.768] Server  LOG      ✓ Compiled in 105ms

@@ -62,36 +62,45 @@ export default function AuthenticatedLayout({
 
   return (
     <div className="flex h-screen bg-background">
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/50 z-40 lg:hidden"
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
+      
       {/* Sidebar */}
       <div
         className={`${
-          sidebarOpen ? "w-64" : "w-20"
-        } bg-foreground/5 border-r border-border transition-all duration-300`}
+          sidebarOpen ? "translate-x-0" : "-translate-x-full"
+        } fixed lg:relative lg:translate-x-0 z-50 w-64 lg:w-${sidebarOpen ? "64" : "20"} bg-foreground/5 border-r border-border transition-all duration-300 h-full`}
       >
-        <div className="p-6 border-b border-border">
-          <h1 className={`font-bold text-primary ${sidebarOpen ? "text-xl" : "text-xs"}`}>
+        <div className="p-4 lg:p-6 border-b border-border">
+          <h1 className={`font-bold text-primary ${sidebarOpen ? "text-xl" : "lg:text-xs text-xl"}`}>
             {sidebarOpen ? "StockMaster" : "SM"}
           </h1>
         </div>
 
-        <nav className="p-4 space-y-2">
+        <nav className="p-2 lg:p-4 space-y-2">
           {getNavigationItems().map((item) => (
             <Link
               key={item.href}
               href={item.href}
-              className="flex items-center gap-3 px-4 py-3 rounded-lg text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+              className="flex items-center gap-3 px-3 lg:px-4 py-3 rounded-lg text-muted-foreground hover:bg-primary/10 hover:text-primary transition-colors"
+              onClick={() => window.innerWidth < 1024 && setSidebarOpen(false)}
             >
-              <item.icon className="w-5 h-5" />
-              {sidebarOpen && <span className="text-sm">{item.label}</span>}
+              <item.icon className="w-5 h-5 flex-shrink-0" />
+              {(sidebarOpen || window.innerWidth < 1024) && <span className="text-sm">{item.label}</span>}
             </Link>
           ))}
         </nav>
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Header */}
-        <div className="border-b border-border bg-background p-6 flex items-center justify-between">
+        <div className="border-b border-border bg-background p-4 lg:p-6 flex items-center justify-between">
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
             className="p-2 hover:bg-foreground/5 rounded-lg transition-colors"
@@ -99,8 +108,8 @@ export default function AuthenticatedLayout({
             <Menu className="w-5 h-5" />
           </button>
 
-          <div className="flex items-center gap-4">
-            <div className="text-right">
+          <div className="flex items-center gap-2 lg:gap-4">
+            <div className="text-right hidden sm:block">
               <p className="text-sm font-medium">{user?.name}</p>
               <p className="text-xs text-muted-foreground">{user?.role}</p>
             </div>
@@ -114,7 +123,7 @@ export default function AuthenticatedLayout({
         </div>
 
         {/* Page Content */}
-        <div className="flex-1 overflow-auto p-6">{children}</div>
+        <div className="flex-1 overflow-auto p-4 lg:p-6">{children}</div>
       </div>
     </div>
   )

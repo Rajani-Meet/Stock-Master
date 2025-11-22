@@ -71,11 +71,12 @@ export default function ProductsPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <h1 className="text-3xl font-bold">Products</h1>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <h1 className="text-2xl sm:text-3xl font-bold">Products</h1>
         <Button className="gap-2" onClick={() => setShowForm(true)}>
           <Plus className="w-4 h-4" />
-          Add Product
+          <span className="hidden sm:inline">Add Product</span>
+          <span className="sm:hidden">Add</span>
         </Button>
       </div>
       
@@ -94,9 +95,9 @@ export default function ProductsPage() {
                 className="flex-1"
               />
             </div>
-            <div className="flex gap-2">
+            <div className="flex flex-col sm:flex-row gap-2">
               <Select value={filters.category} onValueChange={(value) => setFilters({...filters, category: value})}>
-                <SelectTrigger className="w-40">
+                <SelectTrigger className="w-full sm:w-40">
                   <SelectValue placeholder="All Categories" />
                 </SelectTrigger>
                 <SelectContent>
@@ -107,7 +108,7 @@ export default function ProductsPage() {
                 </SelectContent>
               </Select>
               <Select value={filters.unit} onValueChange={(value) => setFilters({...filters, unit: value})}>
-                <SelectTrigger className="w-32">
+                <SelectTrigger className="w-full sm:w-32">
                   <SelectValue placeholder="All Units" />
                 </SelectTrigger>
                 <SelectContent>
@@ -121,7 +122,7 @@ export default function ProductsPage() {
               <Button 
                 variant={filters.lowStock ? "default" : "outline"} 
                 onClick={() => setFilters({...filters, lowStock: !filters.lowStock})}
-                className="gap-2"
+                className="gap-2 w-full sm:w-auto"
               >
                 <Filter className="w-4 h-4" />
                 Low Stock
@@ -138,7 +139,44 @@ export default function ProductsPage() {
               <p className="text-muted-foreground">No products found</p>
             </div>
           ) : (
-            <div className="overflow-x-auto">
+            <div className="block sm:hidden space-y-4">
+              {products.map((product) => {
+                const stockStatus = getStockStatus(product)
+                const totalStock = product.stockLevels?.reduce((sum: number, sl: any) => sum + sl.quantity, 0) || 0
+                return (
+                  <div key={product.id} className="border rounded-lg p-4 space-y-2">
+                    <div className="flex justify-between items-start">
+                      <div>
+                        <h3 className="font-medium">{product.name}</h3>
+                        <p className="text-xs text-muted-foreground font-mono">{product.sku}</p>
+                      </div>
+                      <Badge variant={stockStatus.variant}>
+                        {stockStatus.status}
+                      </Badge>
+                    </div>
+                    <div className="grid grid-cols-2 gap-2 text-sm">
+                      <div>
+                        <span className="text-muted-foreground">Category:</span>
+                        <p>{product.category?.name}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Unit:</span>
+                        <p>{product.unit}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Stock:</span>
+                        <p className="font-medium">{totalStock}</p>
+                      </div>
+                      <div>
+                        <span className="text-muted-foreground">Min Level:</span>
+                        <p>{product.minStockLevel}</p>
+                      </div>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+            <div className="hidden sm:block overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-border">
