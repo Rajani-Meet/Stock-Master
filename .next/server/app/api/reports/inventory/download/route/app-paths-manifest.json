@@ -1,0 +1,3 @@
+{
+  "/api/reports/inventory/download/route": "app/api/reports/inventory/download/route.js"
+}

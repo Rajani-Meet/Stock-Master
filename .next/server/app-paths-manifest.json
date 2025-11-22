@@ -18,6 +18,7 @@
   "/_global-error/page": "app/_global-error/page.js",
   "/_not-found/page": "app/_not-found/page.js",
   "/api/adjustments/route": "app/api/adjustments/route.js",
+  "/api/alerts/low-stock/route": "app/api/alerts/low-stock/route.js",
   "/api/alerts/route": "app/api/alerts/route.js",
   "/api/auth/login/route": "app/api/auth/login/route.js",
   "/api/auth/profile/route": "app/api/auth/profile/route.js",
@@ -33,14 +34,18 @@
   "/api/products/route": "app/api/products/route.js",
   "/api/receipts/route": "app/api/receipts/route.js",
   "/api/reorder-rules/route": "app/api/reorder-rules/route.js",
+  "/api/reports/inventory/download/route": "app/api/reports/inventory/download/route.js",
   "/api/reports/inventory/route": "app/api/reports/inventory/route.js",
+  "/api/reports/movements/download/route": "app/api/reports/movements/download/route.js",
   "/api/reports/movements/route": "app/api/reports/movements/route.js",
   "/api/stock-levels/route": "app/api/stock-levels/route.js",
   "/api/stock-moves/route": "app/api/stock-moves/route.js",
   "/api/transfers/route": "app/api/transfers/route.js",
   "/api/users/route": "app/api/users/route.js",
   "/api/warehouses/route": "app/api/warehouses/route.js",
+  "/home/page": "app/home/page.js",
   "/login/page": "app/login/page.js",
   "/page": "app/page.js",
-  "/reset-password/page": "app/reset-password/page.js"
+  "/reset-password/page": "app/reset-password/page.js",
+  "/signup/page": "app/signup/page.js"
 }

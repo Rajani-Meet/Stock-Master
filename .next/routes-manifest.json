@@ -58,6 +58,12 @@
       "namedRegex": "^/api/alerts(?:/)?$"
     },
     {
+      "page": "/api/alerts/low-stock",
+      "regex": "^/api/alerts/low\\-stock(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/alerts/low\\-stock(?:/)?$"
+    },
+    {
       "page": "/api/auth/login",
       "regex": "^/api/auth/login(?:/)?$",
       "routeKeys": {},
@@ -148,10 +154,22 @@
       "namedRegex": "^/api/reports/inventory(?:/)?$"
     },
     {
+      "page": "/api/reports/inventory/download",
+      "regex": "^/api/reports/inventory/download(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/reports/inventory/download(?:/)?$"
+    },
+    {
       "page": "/api/reports/movements",
       "regex": "^/api/reports/movements(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/api/reports/movements(?:/)?$"
+    },
+    {
+      "page": "/api/reports/movements/download",
+      "regex": "^/api/reports/movements/download(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/api/reports/movements/download(?:/)?$"
     },
     {
       "page": "/api/stock-levels",
@@ -214,6 +232,12 @@
       "namedRegex": "^/deliveries(?:/)?$"
     },
     {
+      "page": "/home",
+      "regex": "^/home(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/home(?:/)?$"
+    },
+    {
       "page": "/login",
       "regex": "^/login(?:/)?$",
       "routeKeys": {},
@@ -260,6 +284,12 @@
       "regex": "^/settings(?:/)?$",
       "routeKeys": {},
       "namedRegex": "^/settings(?:/)?$"
+    },
+    {
+      "page": "/signup",
+      "regex": "^/signup(?:/)?$",
+      "routeKeys": {},
+      "namedRegex": "^/signup(?:/)?$"
     },
     {
       "page": "/transfers",

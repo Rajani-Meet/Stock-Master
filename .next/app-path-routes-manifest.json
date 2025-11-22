@@ -18,6 +18,7 @@
   "/_global-error/page": "/_global-error",
   "/_not-found/page": "/_not-found",
   "/api/adjustments/route": "/api/adjustments",
+  "/api/alerts/low-stock/route": "/api/alerts/low-stock",
   "/api/alerts/route": "/api/alerts",
   "/api/auth/login/route": "/api/auth/login",
   "/api/auth/profile/route": "/api/auth/profile",
@@ -33,14 +34,18 @@
   "/api/products/route": "/api/products",
   "/api/receipts/route": "/api/receipts",
   "/api/reorder-rules/route": "/api/reorder-rules",
+  "/api/reports/inventory/download/route": "/api/reports/inventory/download",
   "/api/reports/inventory/route": "/api/reports/inventory",
+  "/api/reports/movements/download/route": "/api/reports/movements/download",
   "/api/reports/movements/route": "/api/reports/movements",
   "/api/stock-levels/route": "/api/stock-levels",
   "/api/stock-moves/route": "/api/stock-moves",
   "/api/transfers/route": "/api/transfers",
   "/api/users/route": "/api/users",
   "/api/warehouses/route": "/api/warehouses",
+  "/home/page": "/home",
   "/login/page": "/login",
   "/page": "/",
-  "/reset-password/page": "/reset-password"
+  "/reset-password/page": "/reset-password",
+  "/signup/page": "/signup"
 }
