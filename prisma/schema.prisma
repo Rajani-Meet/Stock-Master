@@ -1,0 +1,392 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// ============= USERS & AUTHENTICATION =============
+
+enum UserRole {
+  ADMIN
+  MANAGER
+  WAREHOUSE_STAFF
+}
+
+model User {
+  id                    String    @id @default(cuid())
+  email                 String    @unique
+  name                  String
+  password              String    // hashed
+  role                  UserRole  @default(WAREHOUSE_STAFF)
+  isActive              Boolean   @default(true)
+  lastLoginAt           DateTime?
+  passwordResetToken    String?   @unique
+  passwordResetExpires  DateTime?
+  otpCode               String?
+  otpExpires            DateTime?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  auditLogs             AuditLog[]
+
+  @@index([email])
+  @@index([role])
+}
+
+// ============= WAREHOUSES & LOCATIONS =============
+
+model Warehouse {
+  id           String    @id @default(cuid())
+  name         String
+  code         String    @unique
+  address      String
+  phone        String?
+  email        String?
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  locations    Location[]
+  stockLevels  StockLevel[]
+
+  @@index([code])
+}
+
+model Location {
+  id           String    @id @default(cuid())
+  warehouseId  String
+  warehouse    Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+  name         String
+  code         String
+  description  String?
+  isActive     Boolean   @default(true)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  stockLevels  StockLevel[]
+  stockMoves   StockMove[]
+
+  @@unique([warehouseId, code])
+  @@index([warehouseId])
+}
+
+// ============= PRODUCTS & CATEGORIES =============
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String    @unique
+  description String?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  products    Product[]
+}
+
+model Product {
+  id            String    @id @default(cuid())
+  name          String
+  sku           String    @unique
+  categoryId    String
+  category      Category  @relation(fields: [categoryId], references: [id])
+  description   String?
+  unit          String    @default("UNIT") // UNIT, KG, L, M, etc.
+  minStockLevel Int       @default(10)
+  maxStockLevel Int?
+  reorderQty    Int       @default(50)
+  isActive      Boolean   @default(true)
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  stockLevels        StockLevel[]
+  receiptItems       ReceiptItem[]
+  deliveryItems      DeliveryItem[]
+  transferItems      TransferItem[]
+  adjustmentItems    AdjustmentItem[]
+  reorderRules       ReorderRule[]
+
+  @@index([sku])
+  @@index([categoryId])
+}
+
+// ============= STOCK MANAGEMENT =============
+
+model StockLevel {
+  id           String    @id @default(cuid())
+  warehouseId  String
+  warehouse    Warehouse @relation(fields: [warehouseId], references: [id], onDelete: Cascade)
+  locationId   String
+  location     Location  @relation(fields: [locationId], references: [id], onDelete: Cascade)
+  productId    String
+  product      Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  
+  quantity          Int       @default(0)
+  reservedQuantity  Int       @default(0)
+  availableQuantity Int       @default(0)
+  
+  lastMovedAt       DateTime  @default(now())
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+
+  @@unique([warehouseId, locationId, productId])
+  @@index([warehouseId])
+  @@index([locationId])
+  @@index([productId])
+}
+
+enum StockMoveType {
+  RECEIPT
+  DELIVERY
+  TRANSFER_OUT
+  TRANSFER_IN
+  ADJUSTMENT_PLUS
+  ADJUSTMENT_MINUS
+  RESERVED
+  UNRESERVED
+}
+
+model StockMove {
+  id            String        @id @default(cuid())
+  locationId    String
+  location      Location      @relation(fields: [locationId], references: [id], onDelete: SetNull)
+  productId     String
+  moveType      StockMoveType
+  quantity      Int
+  referenceId   String? // Receipt, Delivery, Transfer, or Adjustment ID
+  referenceType String? // Type of reference
+  notes         String?
+  
+  createdAt     DateTime  @default(now())
+
+  @@index([locationId])
+  @@index([productId])
+  @@index([referenceId])
+}
+
+// ============= RECEIPTS (INCOMING GOODS) =============
+
+enum ReceiptStatus {
+  DRAFT
+  WAITING
+  VALIDATED
+  CANCELLED
+}
+
+model Receipt {
+  id            String        @id @default(cuid())
+  receiptNo     String        @unique
+  status        ReceiptStatus @default(DRAFT)
+  supplierId    String?
+  supplierName  String
+  warehouseId   String
+  receivedDate  DateTime
+  notes         String?
+  
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+
+  items         ReceiptItem[]
+}
+
+model ReceiptItem {
+  id        String    @id @default(cuid())
+  receiptId String
+  receipt   Receipt   @relation(fields: [receiptId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product   @relation(fields: [productId], references: [id])
+  
+  quantityOrdered   Int
+  quantityReceived  Int       @default(0)
+  unitPrice         Decimal?
+  
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([receiptId])
+  @@index([productId])
+}
+
+// ============= DELIVERY ORDERS (OUTGOING GOODS) =============
+
+enum DeliveryStatus {
+  DRAFT
+  READY
+  DONE
+  CANCELLED
+}
+
+model DeliveryOrder {
+  id            String          @id @default(cuid())
+  deliveryNo    String          @unique
+  status        DeliveryStatus  @default(DRAFT)
+  customerId    String?
+  customerName  String
+  warehouseId   String
+  deliveryDate  DateTime
+  notes         String?
+  
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  items         DeliveryItem[]
+}
+
+model DeliveryItem {
+  id        String    @id @default(cuid())
+  deliveryId String
+  delivery  DeliveryOrder @relation(fields: [deliveryId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product   @relation(fields: [productId], references: [id])
+  
+  quantityOrdered   Int
+  quantityPicked    Int       @default(0)
+  quantityPacked    Int       @default(0)
+  quantityDelivered Int       @default(0)
+  
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@index([deliveryId])
+  @@index([productId])
+}
+
+// ============= INTERNAL TRANSFERS =============
+
+enum TransferStatus {
+  DRAFT
+  WAITING
+  READY
+  DONE
+  CANCELLED
+}
+
+model InternalTransfer {
+  id              String          @id @default(cuid())
+  transferNo      String          @unique
+  status          TransferStatus  @default(DRAFT)
+  fromLocationId  String
+  toLocationId    String
+  transferDate    DateTime
+  notes           String?
+  
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  items           TransferItem[]
+}
+
+model TransferItem {
+  id          String    @id @default(cuid())
+  transferId  String
+  transfer    InternalTransfer @relation(fields: [transferId], references: [id], onDelete: Cascade)
+  productId   String
+  product     Product   @relation(fields: [productId], references: [id])
+  
+  quantityRequested Int
+  quantityTransferred Int @default(0)
+  
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([transferId])
+  @@index([productId])
+}
+
+// ============= STOCK ADJUSTMENTS =============
+
+enum AdjustmentType {
+  PHYSICAL_COUNT
+  DAMAGE
+  LOSS
+  GAIN
+  EXPIRY
+}
+
+model StockAdjustment {
+  id            String          @id @default(cuid())
+  adjustmentNo  String          @unique
+  type          AdjustmentType
+  locationId    String
+  adjustmentDate DateTime
+  reason        String
+  notes         String?
+  
+  createdAt     DateTime        @default(now())
+  updatedAt     DateTime        @updatedAt
+
+  items         AdjustmentItem[]
+}
+
+model AdjustmentItem {
+  id            String    @id @default(cuid())
+  adjustmentId  String
+  adjustment    StockAdjustment @relation(fields: [adjustmentId], references: [id], onDelete: Cascade)
+  productId     String
+  product       Product   @relation(fields: [productId], references: [id])
+  
+  currentQty    Int
+  adjustedQty   Int
+  
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+
+  @@index([adjustmentId])
+  @@index([productId])
+}
+
+// ============= REORDER RULES & ALERTS =============
+
+model ReorderRule {
+  id              String    @id @default(cuid())
+  productId       String    @unique
+  product         Product   @relation(fields: [productId], references: [id], onDelete: Cascade)
+  minLevel        Int
+  reorderQty      Int
+  isActive        Boolean   @default(true)
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([productId])
+}
+
+model Alert {
+  id              String    @id @default(cuid())
+  type            String    // LOW_STOCK, OUT_OF_STOCK, PENDING_RECEIPT, PENDING_DELIVERY
+  productId       String?
+  severity        String    @default("WARNING") // INFO, WARNING, CRITICAL
+  message         String
+  isResolved      Boolean   @default(false)
+  resolvedAt      DateTime?
+  
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+
+  @@index([productId])
+  @@index([isResolved])
+}
+
+// ============= AUDIT LOG =============
+
+model AuditLog {
+  id            String    @id @default(cuid())
+  userId        String
+  user          User      @relation(fields: [userId], references: [id])
+  action        String    // CREATE, UPDATE, DELETE, VALIDATE, etc.
+  entityType    String    // Receipt, Delivery, etc.
+  entityId      String
+  changes       String?   // JSON string of changes
+  details       String?
+  
+  createdAt     DateTime  @default(now())
+
+  @@index([userId])
+  @@index([entityType])
+  @@index([entityId])
+}
