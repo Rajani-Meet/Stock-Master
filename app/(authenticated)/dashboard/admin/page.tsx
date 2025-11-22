@@ -47,14 +47,14 @@ export default function AdminDashboard() {
 
   return (
     <div className="space-y-6">
-      <div className="flex items-center justify-between">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div className="flex items-center gap-2">
-          <Shield className="w-8 h-8 text-primary" />
-          <h1 className="text-3xl font-bold">Admin Dashboard</h1>
+          <Shield className="w-6 h-6 sm:w-8 sm:h-8 text-primary" />
+          <h1 className="text-2xl sm:text-3xl font-bold">Admin Dashboard</h1>
         </div>
-        <div className="flex gap-2">
+        <div className="flex flex-col sm:flex-row gap-2">
           <Select value={selectedWarehouse} onValueChange={setSelectedWarehouse}>
-            <SelectTrigger className="w-48">
+            <SelectTrigger className="w-full sm:w-48">
               <SelectValue placeholder="All Warehouses" />
             </SelectTrigger>
             <SelectContent>
@@ -65,7 +65,7 @@ export default function AdminDashboard() {
             </SelectContent>
           </Select>
           <Select value={timeRange} onValueChange={setTimeRange}>
-            <SelectTrigger className="w-32">
+            <SelectTrigger className="w-full sm:w-32">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -161,7 +161,7 @@ export default function AdminDashboard() {
           <CardContent>
             <div className="space-y-3">
               {adminTasks.map((task, idx) => (
-                <div key={idx} className="flex items-center justify-between p-3 rounded-lg border">
+                <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-lg border gap-2">
                   <div className="flex items-center gap-3">
                     <span className="text-sm font-medium">{task.title}</span>
                     {task.count > 0 && (
@@ -193,9 +193,9 @@ export default function AdminDashboard() {
           <CardContent>
             <div className="space-y-2">
               {kpis.alerts.slice(0, 5).map((alert: any, idx: number) => (
-                <div key={idx} className="flex items-center justify-between p-2 rounded border">
+                <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-2 rounded border gap-2">
                   <div className="flex items-center gap-2">
-                    <AlertCircle className="w-4 h-4 text-warning" />
+                    <AlertCircle className="w-4 h-4 text-warning flex-shrink-0" />
                     <span className="text-sm">{alert.message}</span>
                   </div>
                   <span className="text-xs text-muted-foreground">

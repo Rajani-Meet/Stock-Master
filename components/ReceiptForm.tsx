@@ -32,7 +32,7 @@ export default function ReceiptForm({ open, onClose, onSuccess }: ReceiptFormPro
         fetch("/api/warehouses").then(r => r.json()),
         fetch("/api/products").then(r => r.json())
       ]).then(([w, p]) => {
-        setWarehouses(w.data || [])
+        setWarehouses(w || [])
         setProducts(p.data || [])
       })
     }
