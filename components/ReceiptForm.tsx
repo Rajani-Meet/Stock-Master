@@ -60,13 +60,30 @@ export default function ReceiptForm({ open, onClose, onSuccess }: ReceiptFormPro
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
+    
+    // Validation
+    if (!formData.supplierName || !formData.warehouseId) {
+      alert("Please fill in supplier name and warehouse")
+      return
+    }
+    
+    const validItems = formData.items.filter(item => item.productId && item.quantity > 0)
+    if (validItems.length === 0) {
+      alert("Please add at least one valid item")
+      return
+    }
+    
     setLoading(true)
     try {
       const response = await fetch("/api/receipts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          items: validItems
+        })
       })
+      
       if (response.ok) {
         onSuccess()
         onClose()
@@ -77,9 +94,13 @@ export default function ReceiptForm({ open, onClose, onSuccess }: ReceiptFormPro
           notes: "",
           items: [{ productId: "", quantity: 1, unitPrice: 0 }]
         })
+      } else {
+        const error = await response.json()
+        alert(error.error || "Failed to create receipt")
       }
     } catch (error) {
       console.error("Failed to create receipt:", error)
+      alert("Network error. Please try again.")
     } finally {
       setLoading(false)
     }

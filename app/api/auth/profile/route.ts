@@ -1,10 +1,17 @@
 import { db } from "@/lib/db"
+import { getCurrentUser } from "@/lib/auth"
 import { type NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest) {
   try {
-    const user = await db.user.findFirst({
-      where: { email: "admin@example.com" },
+    const currentUser = await getCurrentUser()
+    
+    if (!currentUser) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
+    const user = await db.user.findUnique({
+      where: { id: currentUser.userId },
       select: {
         id: true,
         name: true,
@@ -30,11 +37,17 @@ export async function GET(req: NextRequest) {
 
 export async function PUT(req: NextRequest) {
   try {
+    const currentUser = await getCurrentUser()
+    
+    if (!currentUser) {
+      return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
+    }
+
     const body = await req.json()
     const { name, email } = body
 
     const user = await db.user.update({
-      where: { email: "admin@example.com" },
+      where: { id: currentUser.userId },
       data: { name, email },
       select: {
         id: true,

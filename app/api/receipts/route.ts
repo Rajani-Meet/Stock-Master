@@ -1,5 +1,4 @@
 import { db } from "@/lib/db"
-import { executeStockMovement } from "@/lib/stock-engine"
 import { type NextRequest, NextResponse } from "next/server"
 
 export async function GET(req: NextRequest) {
@@ -120,23 +119,65 @@ export async function PUT(req: NextRequest) {
         return NextResponse.json({ error: "No location found for warehouse" }, { status: 400 })
       }
 
-      // Create stock movements for each item
-      const movements = receipt.items.map((item) => ({
-        productId: item.productId,
-        quantity: item.quantityOrdered,
-        type: "RECEIPT" as const,
-        locationId: location.id,
-        referenceId: receiptId,
-        referenceType: "Receipt",
-        notes: `Receipt validation: ${receipt.receiptNo}`,
-      }))
+      // Create or update stock levels for each item
+      for (const item of receipt.items) {
+        const existingStock = await db.stockLevel.findUnique({
+          where: {
+            warehouseId_locationId_productId: {
+              warehouseId: receipt.warehouseId,
+              locationId: location.id,
+              productId: item.productId,
+            },
+          },
+        })
 
-      await executeStockMovement(movements, {
-        userId,
-        action: "VALIDATE_RECEIPT",
-        entityType: "Receipt",
-        entityId: receiptId,
-        details: `Validated receipt ${receipt.receiptNo} with ${receipt.items.length} items`,
+        if (existingStock) {
+          // Update existing stock
+          await db.stockLevel.update({
+            where: { id: existingStock.id },
+            data: {
+              quantity: existingStock.quantity + item.quantityOrdered,
+              availableQuantity: existingStock.availableQuantity + item.quantityOrdered,
+              lastMovedAt: new Date(),
+            },
+          })
+        } else {
+          // Create new stock level
+          await db.stockLevel.create({
+            data: {
+              warehouseId: receipt.warehouseId,
+              locationId: location.id,
+              productId: item.productId,
+              quantity: item.quantityOrdered,
+              availableQuantity: item.quantityOrdered,
+              reservedQuantity: 0,
+            },
+          })
+        }
+
+        // Create stock move record
+        await db.stockMove.create({
+          data: {
+            locationId: location.id,
+            productId: item.productId,
+            moveType: "RECEIPT",
+            quantity: item.quantityOrdered,
+            referenceId: receiptId,
+            referenceType: "Receipt",
+            notes: `Receipt validation: ${receipt.receiptNo}`,
+          },
+        })
+      }
+
+      // Create audit log
+      await db.auditLog.create({
+        data: {
+          userId,
+          action: "VALIDATE_RECEIPT",
+          entityType: "Receipt",
+          entityId: receiptId,
+          details: `Validated receipt ${receipt.receiptNo} with ${receipt.items.length} items`,
+        },
       })
     }
 
