@@ -139,44 +139,45 @@ export default function ProductsPage() {
               <p className="text-muted-foreground">No products found</p>
             </div>
           ) : (
-            <div className="block sm:hidden space-y-4">
-              {products.map((product) => {
-                const stockStatus = getStockStatus(product)
-                const totalStock = product.stockLevels?.reduce((sum: number, sl: any) => sum + sl.quantity, 0) || 0
-                return (
-                  <div key={product.id} className="border rounded-lg p-4 space-y-2">
-                    <div className="flex justify-between items-start">
-                      <div>
-                        <h3 className="font-medium">{product.name}</h3>
-                        <p className="text-xs text-muted-foreground font-mono">{product.sku}</p>
+            <>
+              <div className="block sm:hidden space-y-4">
+                {products.map((product) => {
+                  const stockStatus = getStockStatus(product)
+                  const totalStock = product.stockLevels?.reduce((sum: number, sl: any) => sum + sl.quantity, 0) || 0
+                  return (
+                    <div key={product.id} className="border rounded-lg p-4 space-y-2">
+                      <div className="flex justify-between items-start">
+                        <div>
+                          <h3 className="font-medium">{product.name}</h3>
+                          <p className="text-xs text-muted-foreground font-mono">{product.sku}</p>
+                        </div>
+                        <Badge variant={stockStatus.variant}>
+                          {stockStatus.status}
+                        </Badge>
                       </div>
-                      <Badge variant={stockStatus.variant}>
-                        {stockStatus.status}
-                      </Badge>
+                      <div className="grid grid-cols-2 gap-2 text-sm">
+                        <div>
+                          <span className="text-muted-foreground">Category:</span>
+                          <p>{product.category?.name}</p>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">Unit:</span>
+                          <p>{product.unit}</p>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">Stock:</span>
+                          <p className="font-medium">{totalStock}</p>
+                        </div>
+                        <div>
+                          <span className="text-muted-foreground">Min Level:</span>
+                          <p>{product.minStockLevel}</p>
+                        </div>
+                      </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-2 text-sm">
-                      <div>
-                        <span className="text-muted-foreground">Category:</span>
-                        <p>{product.category?.name}</p>
-                      </div>
-                      <div>
-                        <span className="text-muted-foreground">Unit:</span>
-                        <p>{product.unit}</p>
-                      </div>
-                      <div>
-                        <span className="text-muted-foreground">Stock:</span>
-                        <p className="font-medium">{totalStock}</p>
-                      </div>
-                      <div>
-                        <span className="text-muted-foreground">Min Level:</span>
-                        <p>{product.minStockLevel}</p>
-                      </div>
-                    </div>
-                  </div>
-                )
-              })}
-            </div>
-            <div className="hidden sm:block overflow-x-auto">
+                  )
+                })}
+              </div>
+              <div className="hidden sm:block overflow-x-auto">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-border">
@@ -223,7 +224,8 @@ export default function ProductsPage() {
                   })}
                 </tbody>
               </table>
-            </div>
+              </div>
+            </>
           )}
         </CardContent>
       </Card>
