@@ -1,22 +1,21 @@
 # StockMaster - Inventory Management System
 
-A comprehensive, modern inventory management system built with Next.js, TypeScript, and PostgreSQL. Designed for businesses to digitize and streamline all stock-related operations.
+A complete, enterprise-grade inventory management system built with **Next.js 14** (App Router), **TypeScript**, **PostgreSQL**, and **Prisma ORM**. Supports product cataloging, warehouse operations, stock movement tracking, real-time alerts, and complete auditability.
 
-## Features
+## 🚀 Features
 
-### Core Functionality
-- **Product Management**: Create and manage products with SKU, categories, and stock levels
-- **Warehouse Management**: Multi-warehouse support with location tracking
-- **Stock Operations**: 
-  - Receipts (incoming goods from vendors)
-  - Delivery Orders (outgoing goods to customers)
-  - Internal Transfers (between locations/warehouses)
-  - Stock Adjustments (physical counts, damage, loss)
-- **Real-time Inventory**: Live stock level tracking with reserved quantity management
-- **Alerts & Notifications**: Low stock alerts, out-of-stock warnings
-- **Role-Based Access Control**: Admin, Manager, and Warehouse Staff roles
-- **Audit Logging**: Complete history of all inventory movements
-- **Reports & Analytics**: Dashboard KPIs and stock movement summaries
+- **Authentication & Security**: JWT-based auth, role-based access control (Admin, Manager, Warehouse Staff)
+- **Product Management**: SKU-based product catalog with categories
+- **Warehouse Management**: Multi-warehouse support with locations (racks, shelves, zones)
+- **Inventory Operations**:
+  - Receipts (inbound goods) with Draft→Validate workflow
+  - Deliveries (outbound goods) with Draft→Ready→Done workflow
+  - Internal Transfers between locations
+  - Stock Adjustments with mandatory reason logging
+- **Stock Movement Engine**: Transaction-safe movements with atomic row locking and audit trails
+- **Alerts & Reorder**: Low-stock detection, reorder rules, automated alerts
+- **Dashboard & Reporting**: Real-time KPIs, charts, filters by warehouse/category/date
+- **Audit Logging**: Complete change tracking for compliance
 
 ### Advanced Features
 - **Reorder Rules**: Automatic reorder point management

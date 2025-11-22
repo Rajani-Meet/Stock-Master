@@ -34,8 +34,10 @@ export default function LoginPage() {
         return
       }
 
-      localStorage.setItem("user", JSON.stringify(data))
-      localStorage.setItem("userId", data.id)
+      // Store user info (token is in HTTP-only cookie)
+      localStorage.setItem("user", JSON.stringify(data.user))
+      localStorage.setItem("userId", data.user.id)
+
       router.push("/dashboard")
     } catch (err) {
       setError("An error occurred. Please try again.")

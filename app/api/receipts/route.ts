@@ -7,21 +7,28 @@ export async function GET(req: NextRequest) {
     const { searchParams } = new URL(req.url)
     const status = searchParams.get("status")
     const warehouseId = searchParams.get("warehouseId")
+    const skip = parseInt(searchParams.get("skip") || "0")
+    const take = parseInt(searchParams.get("take") || "20")
 
     const where: any = {}
     if (status) where.status = status
     if (warehouseId) where.warehouseId = warehouseId
 
-    const receipts = await db.receipt.findMany({
-      where,
-      include: {
-        items: { include: { product: true } },
-      },
-      orderBy: { createdAt: "desc" },
-      take: 50,
-    })
+    const [receipts, total] = await Promise.all([
+      db.receipt.findMany({
+        where,
+        include: {
+          items: { include: { product: true } },
+          warehouse: true,
+        },
+        orderBy: { createdAt: "desc" },
+        skip,
+        take,
+      }),
+      db.receipt.count({ where }),
+    ])
 
-    return NextResponse.json(receipts)
+    return NextResponse.json({ receipts, total })
   } catch (error) {
     console.error("Get receipts error:", error)
     return NextResponse.json({ error: "Failed to fetch receipts" }, { status: 500 })
@@ -54,7 +61,7 @@ export async function POST(req: NextRequest) {
           })),
         },
       },
-      include: { items: { include: { product: true } } },
+      include: { items: { include: { product: true } }, warehouse: true },
     })
 
     return NextResponse.json(receipt, { status: 201 })
@@ -67,28 +74,29 @@ export async function POST(req: NextRequest) {
 export async function PUT(req: NextRequest) {
   try {
     const body = await req.json()
-    const { receiptId, status, items } = body
+    const { receiptId, status, items, userId } = body
 
-    if (!receiptId) {
-      return NextResponse.json({ error: "Missing receipt ID" }, { status: 400 })
+    if (!receiptId || !userId) {
+      return NextResponse.json({ error: "Missing receipt ID or user ID" }, { status: 400 })
     }
 
     if (status === "VALIDATED") {
       // Process stock movements
-      const warehouse = await db.receipt.findUnique({
+      const receipt = await db.receipt.findUnique({
         where: { id: receiptId },
         include: {
           items: true,
+          warehouse: true,
         },
       })
 
-      if (!warehouse) {
+      if (!receipt) {
         return NextResponse.json({ error: "Receipt not found" }, { status: 404 })
       }
 
       // Get default location for warehouse (or use first location)
       const location = await db.location.findFirst({
-        where: { warehouseId: warehouse.warehouseId },
+        where: { warehouseId: receipt.warehouseId },
       })
 
       if (!location) {
@@ -96,27 +104,35 @@ export async function PUT(req: NextRequest) {
       }
 
       // Create stock movements for each item
-      const movements = warehouse.items.map((item) => ({
+      const movements = receipt.items.map((item) => ({
         productId: item.productId,
         quantity: item.quantityOrdered,
         type: "RECEIPT" as const,
         locationId: location.id,
         referenceId: receiptId,
-        notes: `Receipt validation from supplier`,
+        referenceType: "Receipt",
+        notes: `Receipt validation: ${receipt.receiptNo}`,
       }))
 
-      await executeStockMovement(movements)
+      await executeStockMovement(movements, {
+        userId,
+        action: "VALIDATE_RECEIPT",
+        entityType: "Receipt",
+        entityId: receiptId,
+        details: `Validated receipt ${receipt.receiptNo} with ${receipt.items.length} items`,
+      })
     }
 
-    const receipt = await db.receipt.update({
+    const updatedReceipt = await db.receipt.update({
       where: { id: receiptId },
       data: { status },
-      include: { items: { include: { product: true } } },
+      include: { items: { include: { product: true } }, warehouse: true },
     })
 
-    return NextResponse.json(receipt)
+    return NextResponse.json(updatedReceipt)
   } catch (error) {
     console.error("Update receipt error:", error)
     return NextResponse.json({ error: "Failed to update receipt" }, { status: 500 })
   }
 }
+

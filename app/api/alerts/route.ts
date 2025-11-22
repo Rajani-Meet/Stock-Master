@@ -5,19 +5,27 @@ export async function GET(req: NextRequest) {
   try {
     const { searchParams } = new URL(req.url)
     const isResolved = searchParams.get("isResolved")
-    const productId = searchParams.get("productId")
+    const warehouseId = searchParams.get("warehouseId")
+    const skip = parseInt(searchParams.get("skip") || "0")
+    const take = parseInt(searchParams.get("take") || "20")
 
     const where: any = {}
     if (isResolved !== null) where.isResolved = isResolved === "true"
-    if (productId) where.productId = productId
 
-    const alerts = await db.alert.findMany({
-      where,
-      orderBy: { createdAt: "desc" },
-      take: 50,
-    })
+    const includeProduct = productId ? { product: true } : {}
 
-    return NextResponse.json(alerts)
+    const [alerts, total] = await Promise.all([
+      db.alert.findMany({
+        where,
+        include: includeProduct,
+        orderBy: { createdAt: "desc" },
+        skip,
+        take,
+      }),
+      db.alert.count({ where }),
+    ])
+
+    return NextResponse.json({ alerts, total })
   } catch (error) {
     console.error("Get alerts error:", error)
     return NextResponse.json({ error: "Failed to fetch alerts" }, { status: 500 })
@@ -49,7 +57,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-export async function PUT(req: NextRequest) {
+export async function PATCH(req: NextRequest) {
   try {
     const body = await req.json()
     const { alertId } = body

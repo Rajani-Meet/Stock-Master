@@ -4,6 +4,9 @@ import { hashPassword } from "@/lib/auth"
 async function main() {
   console.log("🌱 Starting seed...")
 
+  // Clear existing data (optional - comment out in production)
+  // await db.$executeRawUnsafe('TRUNCATE TABLE "User" RESTART IDENTITY CASCADE;')
+
   // Create admin user
   const admin = await db.user.create({
     data: {
@@ -222,6 +225,51 @@ async function main() {
     }),
   ])
   console.log("✓ Created", stockLevels.length, "stock levels")
+
+  // Create reorder rules
+  const reorderRules = await Promise.all([
+    db.reorderRule.create({
+      data: {
+        productId: products[0].id,
+        minLevel: 50,
+        reorderQty: 100,
+      },
+    }),
+    db.reorderRule.create({
+      data: {
+        productId: products[1].id,
+        minLevel: 20,
+        reorderQty: 50,
+      },
+    }),
+    db.reorderRule.create({
+      data: {
+        productId: products[2].id,
+        minLevel: 10,
+        reorderQty: 25,
+      },
+    }),
+    db.reorderRule.create({
+      data: {
+        productId: products[3].id,
+        minLevel: 5,
+        reorderQty: 15,
+      },
+    }),
+  ])
+  console.log("✓ Created", reorderRules.length, "reorder rules")
+
+  // Create audit log entry for seed
+  await db.auditLog.create({
+    data: {
+      userId: admin.id,
+      action: "SEED",
+      entityType: "Database",
+      entityId: "seed",
+      details: "Initial database seed completed",
+    },
+  })
+  console.log("✓ Logged audit entry")
 
   console.log("✅ Seed completed successfully!")
 }
