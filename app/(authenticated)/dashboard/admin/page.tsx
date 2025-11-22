@@ -77,106 +77,159 @@ export default function AdminDashboard() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-        <Card>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-0">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Total Products</CardTitle>
-            <Package className="w-4 h-4 text-primary" />
+            <CardTitle className="text-sm font-medium text-gray-600">Total Products</CardTitle>
+            <div className="w-12 h-12 bg-blue-100 rounded-2xl flex items-center justify-center">
+              <Package className="w-6 h-6 text-blue-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{kpis?.inventory?.totalProducts || 0}</div>
-            <p className="text-xs text-muted-foreground mt-1">Active inventory items</p>
+            <div className="text-3xl font-bold text-gray-900 mb-2">
+              {kpis?.inventory?.totalProducts || 0}
+            </div>
+            <p className="text-xs text-gray-500 flex items-center gap-1">
+              <TrendingUp className="w-3 h-3 text-green-500" />
+              Active inventory items
+            </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-0">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Inventory Value</CardTitle>
-            <DollarSign className="w-4 h-4 text-success" />
+            <CardTitle className="text-sm font-medium text-gray-600">Inventory Value</CardTitle>
+            <div className="w-12 h-12 bg-green-100 rounded-2xl flex items-center justify-center">
+              <DollarSign className="w-6 h-6 text-green-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">${(kpis?.inventory?.totalInventoryValue || 0).toLocaleString()}</div>
-            <p className="text-xs text-muted-foreground mt-1">Total stock value</p>
+            <div className="text-3xl font-bold text-gray-900 mb-2">
+              ${(kpis?.inventory?.totalInventoryValue || 0).toLocaleString()}
+            </div>
+            <p className="text-xs text-gray-500 flex items-center gap-1">
+              <TrendingUp className="w-3 h-3 text-green-500" />
+              Total stock value
+            </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-0">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Low Stock Items</CardTitle>
-            <AlertCircle className="w-4 h-4 text-warning" />
+            <CardTitle className="text-sm font-medium text-gray-600">Low Stock Items</CardTitle>
+            <div className="w-12 h-12 bg-red-100 rounded-2xl flex items-center justify-center">
+              <AlertCircle className="w-6 h-6 text-red-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold text-warning">{kpis?.inventory?.lowStockItems || 0}</div>
-            <p className="text-xs text-muted-foreground mt-1">Need reordering</p>
+            <div className="text-3xl font-bold text-red-600 mb-2">
+              {kpis?.inventory?.lowStockItems || 0}
+            </div>
+            <p className="text-xs text-gray-500 flex items-center gap-1">
+              <AlertCircle className="w-3 h-3 text-red-500" />
+              Need reordering
+            </p>
           </CardContent>
         </Card>
 
-        <Card>
+        <Card className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border-0">
           <CardHeader className="flex flex-row items-center justify-between pb-2">
-            <CardTitle className="text-sm font-medium">Stock Movements</CardTitle>
-            <Activity className="w-4 h-4 text-accent" />
+            <CardTitle className="text-sm font-medium text-gray-600">Stock Movements</CardTitle>
+            <div className="w-12 h-12 bg-purple-100 rounded-2xl flex items-center justify-center">
+              <Activity className="w-6 h-6 text-purple-600" />
+            </div>
           </CardHeader>
           <CardContent>
-            <div className="text-2xl font-bold">{kpis?.operations?.totalMovements || 0}</div>
-            <p className="text-xs text-muted-foreground mt-1">Last {timeRange} days</p>
+            <div className="text-3xl font-bold text-gray-900 mb-2">
+              {kpis?.operations?.totalMovements || 0}
+            </div>
+            <p className="text-xs text-gray-500 flex items-center gap-1">
+              <Activity className="w-3 h-3 text-purple-500" />
+              Last {timeRange} days
+            </p>
           </CardContent>
         </Card>
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <Card>
-          <CardHeader>
-            <CardTitle>Operations Overview</CardTitle>
+        <Card className="bg-white rounded-2xl shadow-lg border-0">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-2 text-gray-900">
+              <BarChart3 className="w-5 h-5 text-blue-600" />
+              Operations Overview
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-4">
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Pending Receipts</span>
-                <Badge variant="outline">{kpis?.operations?.pendingReceipts || 0}</Badge>
+              <div className="flex justify-between items-center p-3 rounded-xl bg-gradient-to-r from-primary/5 to-transparent border border-primary/10">
+                <span className="text-sm font-medium">Pending Receipts</span>
+                <Badge className="bg-primary/10 text-primary border-primary/20">
+                  {kpis?.operations?.pendingReceipts || 0}
+                </Badge>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Pending Deliveries</span>
-                <Badge variant="outline">{kpis?.operations?.pendingDeliveries || 0}</Badge>
+              <div className="flex justify-between items-center p-3 rounded-xl bg-gradient-to-r from-secondary/5 to-transparent border border-secondary/10">
+                <span className="text-sm font-medium">Pending Deliveries</span>
+                <Badge className="bg-secondary/10 text-secondary border-secondary/20">
+                  {kpis?.operations?.pendingDeliveries || 0}
+                </Badge>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Scheduled Transfers</span>
-                <Badge variant="outline">{kpis?.operations?.scheduledTransfers || 0}</Badge>
+              <div className="flex justify-between items-center p-3 rounded-xl bg-gradient-to-r from-accent/5 to-transparent border border-accent/10">
+                <span className="text-sm font-medium">Scheduled Transfers</span>
+                <Badge className="bg-accent/10 text-accent border-accent/20">
+                  {kpis?.operations?.scheduledTransfers || 0}
+                </Badge>
               </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Inbound Movements</span>
-                <Badge variant="secondary">{kpis?.operations?.inboundMovements || 0}</Badge>
-              </div>
-              <div className="flex justify-between items-center">
-                <span className="text-sm">Outbound Movements</span>
-                <Badge variant="secondary">{kpis?.operations?.outboundMovements || 0}</Badge>
+              <div className="grid grid-cols-2 gap-3">
+                <div className="p-3 rounded-xl bg-muted/50 text-center">
+                  <p className="text-xs text-muted-foreground mb-1">Inbound</p>
+                  <p className="text-lg font-bold text-secondary">{kpis?.operations?.inboundMovements || 0}</p>
+                </div>
+                <div className="p-3 rounded-xl bg-muted/50 text-center">
+                  <p className="text-xs text-muted-foreground mb-1">Outbound</p>
+                  <p className="text-lg font-bold text-primary">{kpis?.operations?.outboundMovements || 0}</p>
+                </div>
               </div>
             </div>
           </CardContent>
         </Card>
 
-        <Card>
-          <CardHeader>
-            <CardTitle>Priority Tasks</CardTitle>
+        <Card className="bg-white rounded-2xl shadow-lg border-0">
+          <CardHeader className="pb-4">
+            <CardTitle className="flex items-center gap-2 text-gray-900">
+              <AlertCircle className="w-5 h-5 text-red-600" />
+              Priority Tasks
+            </CardTitle>
           </CardHeader>
           <CardContent>
             <div className="space-y-3">
               {adminTasks.map((task, idx) => (
-                <div key={idx} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 rounded-lg border gap-2">
-                  <div className="flex items-center gap-3">
-                    <span className="text-sm font-medium">{task.title}</span>
-                    {task.count > 0 && (
-                      <Badge variant={task.priority === "HIGH" ? "destructive" : "secondary"}>
-                        {task.count}
+                <div key={idx} className="group p-4 rounded-xl border border-border/50 hover:border-primary/20 hover:shadow-md transition-all duration-200 bg-gradient-to-r from-background to-muted/20">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                    <div className="flex items-center gap-3">
+                      <div className={`w-2 h-2 rounded-full ${
+                        task.priority === "HIGH" ? "bg-destructive" : 
+                        task.priority === "MEDIUM" ? "bg-accent" : "bg-secondary"
+                      }`} />
+                      <span className="text-sm font-medium group-hover:text-primary transition-colors">{task.title}</span>
+                      {task.count > 0 && (
+                        <Badge variant={task.priority === "HIGH" ? "destructive" : "secondary"} className="text-xs">
+                          {task.count}
+                        </Badge>
+                      )}
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <Badge 
+                        variant={task.priority === "HIGH" ? "destructive" : task.priority === "MEDIUM" ? "default" : "secondary"}
+                        className="text-xs"
+                      >
+                        {task.priority}
                       </Badge>
-                    )}
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <Badge variant={task.priority === "HIGH" ? "destructive" : task.priority === "MEDIUM" ? "default" : "secondary"}>
-                      {task.priority}
-                    </Badge>
-                    <Link href={task.link}>
-                      <Button size="sm" variant="outline">View</Button>
-                    </Link>
+                      <Link href={task.link}>
+                        <Button size="sm" variant="outline" className="hover:bg-primary hover:text-primary-foreground transition-colors">
+                          View
+                        </Button>
+                      </Link>
+                    </div>
                   </div>
                 </div>
               ))}

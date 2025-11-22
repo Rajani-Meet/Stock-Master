@@ -72,8 +72,18 @@ export default function ProductsPage() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <h1 className="text-2xl sm:text-3xl font-bold">Products</h1>
-        <Button className="gap-2" onClick={() => setShowForm(true)}>
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 bg-gradient-to-br from-primary/10 to-secondary/10 rounded-xl flex items-center justify-center">
+            <Package className="w-6 h-6 text-primary" />
+          </div>
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-foreground to-muted-foreground bg-clip-text text-transparent">
+              Products
+            </h1>
+            <p className="text-sm text-muted-foreground">Manage your inventory catalog</p>
+          </div>
+        </div>
+        <Button className="gap-2 bg-gradient-to-r from-primary to-primary/90 hover:from-primary/90 hover:to-primary shadow-lg" onClick={() => setShowForm(true)}>
           <Plus className="w-4 h-4" />
           <span className="hidden sm:inline">Add Product</span>
           <span className="sm:hidden">Add</span>
@@ -82,18 +92,20 @@ export default function ProductsPage() {
       
       <ProductForm open={showForm} onClose={() => setShowForm(false)} onSuccess={fetchProducts} />
 
-      <Card>
+      <Card className="bg-white rounded-2xl shadow-lg border-0">
         <CardHeader>
           <div className="flex flex-col sm:flex-row gap-4">
             <div className="flex items-center gap-2 flex-1">
-              <Search className="w-4 h-4 text-muted-foreground" />
-              <Input
-                type="text"
-                placeholder="Search by name, SKU, or description..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="flex-1"
-              />
+              <div className="relative flex-1">
+                <Search className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 -translate-y-1/2" />
+                <Input
+                  type="text"
+                  placeholder="Search by name, SKU, or description..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-10 h-11 bg-gray-50 border-gray-200 focus:border-blue-500 focus:bg-white rounded-xl transition-colors"
+                />
+              </div>
             </div>
             <div className="flex flex-col sm:flex-row gap-2">
               <Select value={filters.category} onValueChange={(value) => setFilters({...filters, category: value})}>

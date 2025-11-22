@@ -10,7 +10,11 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] })
 export const metadata: Metadata = {
   title: "StockMaster - Inventory Management System",
   description: "Centralized inventory management for efficient stock operations",
-  viewport: "width=device-width, initial-scale=1",
+}
+
+export const viewport = {
+  width: 'device-width',
+  initialScale: 1,
 }
 
 export default function RootLayout({

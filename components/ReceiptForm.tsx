@@ -108,20 +108,31 @@ export default function ReceiptForm({ open, onClose, onSuccess }: ReceiptFormPro
 
   return (
     <Dialog open={open} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto">
-        <DialogHeader>
-          <DialogTitle>Create Receipt</DialogTitle>
+      <DialogContent className="max-w-2xl max-h-[80vh] overflow-y-auto border-0 shadow-2xl bg-white rounded-3xl">
+        <DialogHeader className="pb-4">
+          <DialogTitle className="text-xl font-semibold flex items-center gap-2 text-gray-900">
+            <div className="w-8 h-8 bg-blue-100 rounded-lg flex items-center justify-center">
+              <Plus className="w-4 h-4 text-blue-600" />
+            </div>
+            Create Receipt
+          </DialogTitle>
         </DialogHeader>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
-            <div>
-              <Label>Supplier Name</Label>
-              <Input value={formData.supplierName} onChange={(e) => setFormData({...formData, supplierName: e.target.value})} required />
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700">Supplier Name</Label>
+              <Input 
+                value={formData.supplierName} 
+                onChange={(e) => setFormData({...formData, supplierName: e.target.value})} 
+                required 
+                className="h-11 bg-gray-50 border-gray-200 focus:border-blue-500 focus:bg-white rounded-xl"
+                placeholder="Enter supplier name"
+              />
             </div>
-            <div>
-              <Label>Warehouse</Label>
+            <div className="space-y-2">
+              <Label className="text-sm font-medium text-gray-700">Warehouse</Label>
               <Select value={formData.warehouseId} onValueChange={(value) => setFormData({...formData, warehouseId: value})}>
-                <SelectTrigger>
+                <SelectTrigger className="h-11 bg-gray-50 border-gray-200 focus:border-blue-500 focus:bg-white rounded-xl">
                   <SelectValue placeholder="Select warehouse" />
                 </SelectTrigger>
                 <SelectContent>
@@ -132,9 +143,14 @@ export default function ReceiptForm({ open, onClose, onSuccess }: ReceiptFormPro
               </Select>
             </div>
           </div>
-          <div>
-            <Label>Received Date</Label>
-            <Input type="date" value={formData.receivedDate} onChange={(e) => setFormData({...formData, receivedDate: e.target.value})} />
+          <div className="space-y-2">
+            <Label className="text-sm font-medium text-gray-700">Received Date</Label>
+            <Input 
+              type="date" 
+              value={formData.receivedDate} 
+              onChange={(e) => setFormData({...formData, receivedDate: e.target.value})} 
+              className="h-11 bg-gray-50 border-gray-200 focus:border-blue-500 focus:bg-white rounded-xl"
+            />
           </div>
           
           <div>
@@ -178,9 +194,24 @@ export default function ReceiptForm({ open, onClose, onSuccess }: ReceiptFormPro
             <Input value={formData.notes} onChange={(e) => setFormData({...formData, notes: e.target.value})} />
           </div>
           
-          <div className="flex gap-2 justify-end">
-            <Button type="button" variant="outline" onClick={onClose}>Cancel</Button>
-            <Button type="submit" disabled={loading}>Create Receipt</Button>
+          <div className="flex gap-3 justify-end pt-4 border-t border-gray-200">
+            <Button type="button" variant="outline" onClick={onClose} className="hover:bg-gray-50 border-gray-200">
+              Cancel
+            </Button>
+            <Button 
+              type="submit" 
+              disabled={loading} 
+              className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 rounded-xl"
+            >
+              {loading ? (
+                <div className="flex items-center gap-2">
+                  <div className="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                  Creating...
+                </div>
+              ) : (
+                "Create Receipt"
+              )}
+            </Button>
           </div>
         </form>
       </DialogContent>

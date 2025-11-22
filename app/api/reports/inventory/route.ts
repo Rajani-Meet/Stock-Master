@@ -1,4 +1,6 @@
 import { db } from "@/lib/db"
+import { getCurrentUser } from "@/lib/auth"
+import { sendReportEmail } from "@/lib/email"
 import { NextResponse } from "next/server"
 
 export async function GET(req: Request) {
@@ -6,6 +8,7 @@ export async function GET(req: Request) {
     const { searchParams } = new URL(req.url)
     const warehouseId = searchParams.get("warehouseId")
     const categoryId = searchParams.get("categoryId")
+    const sendEmail = searchParams.get("sendEmail") === 'true'
 
     const where: any = {}
     if (warehouseId) where.warehouseId = warehouseId
@@ -24,7 +27,7 @@ export async function GET(req: Request) {
     const lowStockCount = stockLevels.filter(sl => sl.quantity <= sl.product.minStockLevel).length
     const outOfStockCount = stockLevels.filter(sl => sl.quantity === 0).length
 
-    return NextResponse.json({
+    const reportData = {
       summary: {
         totalProducts: stockLevels.length,
         totalValue,
@@ -32,7 +35,19 @@ export async function GET(req: Request) {
         outOfStockCount
       },
       details: stockLevels
-    })
+    }
+
+    if (sendEmail) {
+      const currentUser = await getCurrentUser()
+      if (currentUser) {
+        const user = await db.user.findUnique({ where: { id: currentUser.userId } })
+        if (user) {
+          await sendReportEmail(user.email, 'Inventory', reportData)
+        }
+      }
+    }
+
+    return NextResponse.json({ ...reportData, success: true })
   } catch (error) {
     return NextResponse.json({ error: "Failed to generate inventory report" }, { status: 500 })
   }
